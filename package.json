@@ -13,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
+    "@types/config": "^0.0.38",
     "@types/node": "^14.14.35",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
@@ -23,6 +24,7 @@
   },
   "dependencies": {
     "@solana/spl-token": "^0.1.6",
-    "@solana/web3.js": "^1.18.0"
+    "@solana/web3.js": "^1.18.0",
+    "config": "^3.3.6"
   }
 }
