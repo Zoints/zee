@@ -14,5 +14,4 @@ services:
             VAULT_ADDR: http://127.0.0.1:8200
         ports:
             - 8200:8200
-        command: ./scripts/setup_dev_vault.sh
 
