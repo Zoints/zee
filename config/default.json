@@ -1,7 +1,6 @@
 {
     "vault": {
-        "url": "http://127.0.0.1:8200",
-        "type": "approle",
+        "url": "https://127.0.0.1:8200",
         "role_id": "",
         "secret_id": ""
     },

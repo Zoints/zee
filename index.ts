@@ -65,23 +65,43 @@ const distribution = [
     }
 ];
 
-const funder = new Keypair();
-const mint = new Keypair();
-const mintAuthority = new Keypair();
-
 (async () => {
     let vault: NodeVault.client;
-    if (config.get('vault.type') == 'approle') {
+    if (process.env.NODE_ENV === 'dev') {
+        vault = NodeVault({
+            apiVersion: 'v1',
+            endpoint: config.get('vault.url'),
+            token: config.get('vault.token')
+        });
+    } else {
         vault = NodeVault({ endpoint: config.get('vault.url') });
         await vault.approleLogin({
             role_id: config.get('vault.role_id'),
             secret_id: config.get('vault.secret_id')
         });
-    } else {
-        vault = NodeVault({
-            endpoint: config.get('vault.url'),
-            token: config.get('vault.token')
-        });
+    }
+
+    const secret = await vault.read('secret/data/zee');
+
+    const funder = Keypair.fromSecretKey(
+        Buffer.from(secret.data.data.funder, 'base64')
+    );
+    const mint = Keypair.fromSecretKey(
+        Buffer.from(secret.data.data.mint, 'base64')
+    );
+    const mintAuthority = Keypair.fromSecretKey(
+        Buffer.from(secret.data.data.mintAuthority, 'base64')
+    );
+
+    if (process.env.NODE_ENV === 'dev') {
+        await connection.requestAirdrop(funder.publicKey, 2 * LAMPORTS_PER_SOL);
+
+        while ((await connection.getBalance(funder.publicKey)) == 0) {
+            await new Promise((resolve, reject) => {
+                setTimeout(resolve, 1000);
+            });
+        }
+        console.log(`Airdropped 2 SOL to ${funder.publicKey.toBase58()}`);
     }
 
     const distribute: {
@@ -118,15 +138,6 @@ const mintAuthority = new Keypair();
     }
 
     assert(total === SUPPLY);
-
-    await connection.requestAirdrop(funder.publicKey, 2 * LAMPORTS_PER_SOL);
-    console.log(`Airdropped 2 SOL to ${funder.publicKey.toBase58()}`);
-
-    while ((await connection.getBalance(funder.publicKey)) == 0) {
-        await new Promise((resolve, reject) => {
-            setTimeout(resolve, 1000);
-        });
-    }
 
     const balanceNeeded = await Token.getMinBalanceRentForExemptMint(
         connection
