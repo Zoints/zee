@@ -1,0 +1,6 @@
+{
+    "vault": {
+        "type": "token",
+        "token": "zoints"
+    }
+}

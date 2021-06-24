@@ -16,6 +16,7 @@ import {
     Transaction
 } from '@solana/web3.js';
 import assert from 'assert';
+import NodeVault from 'node-vault';
 
 const connection = new Connection(config.get('solana.url'));
 
@@ -69,6 +70,20 @@ const mint = new Keypair();
 const mintAuthority = new Keypair();
 
 (async () => {
+    let vault: NodeVault.client;
+    if (config.get('vault.type') == 'approle') {
+        vault = NodeVault({ endpoint: config.get('vault.url') });
+        await vault.approleLogin({
+            role_id: config.get('vault.role_id'),
+            secret_id: config.get('vault.secret_id')
+        });
+    } else {
+        vault = NodeVault({
+            endpoint: config.get('vault.url'),
+            token: config.get('vault.token')
+        });
+    }
+
     const distribute: {
         name: string;
         amount: number;
