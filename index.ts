@@ -66,43 +66,7 @@ const distribution = [
 ];
 
 (async () => {
-    let vault: NodeVault.client;
-    if (process.env.NODE_ENV === 'dev') {
-        vault = NodeVault({
-            apiVersion: 'v1',
-            endpoint: config.get('vault.url'),
-            token: config.get('vault.token')
-        });
-
-        const funder = new Keypair();
-        const mint = new Keypair();
-        const mintAuthority = new Keypair();
-
-        await connection.requestAirdrop(funder.publicKey, 2 * LAMPORTS_PER_SOL);
-
-        while ((await connection.getBalance(funder.publicKey)) == 0) {
-            await new Promise((resolve, reject) => {
-                setTimeout(resolve, 1000);
-            });
-        }
-        console.log(`Airdropped 2 SOL to ${funder.publicKey.toBase58()}`);
-
-        await vault.write('secret/data/zee', {
-            data: {
-                funder: Buffer.from(funder.secretKey).toString('base64'),
-                mint: Buffer.from(mint.secretKey).toString('base64'),
-                mintAuthority: Buffer.from(mintAuthority.secretKey).toString(
-                    'base64'
-                )
-            }
-        });
-    } else {
-        vault = NodeVault({ endpoint: config.get('vault.url') });
-        await vault.approleLogin({
-            role_id: config.get('vault.role_id'),
-            secret_id: config.get('vault.secret_id')
-        });
-    }
+    const vault = await loadVault();
 
     const secret = await vault.read('secret/data/zee');
 
@@ -237,3 +201,44 @@ const distribution = [
     const mintInfo = await token.getMintInfo();
     assert(mintInfo.mintAuthority === null);
 })();
+
+async function loadVault(): Promise<NodeVault.client> {
+    let vault: NodeVault.client;
+    if (process.env.NODE_ENV === 'dev') {
+        vault = NodeVault({
+            apiVersion: 'v1',
+            endpoint: config.get('vault.url'),
+            token: config.get('vault.token')
+        });
+
+        const funder = new Keypair();
+        const mint = new Keypair();
+        const mintAuthority = new Keypair();
+
+        await connection.requestAirdrop(funder.publicKey, 2 * LAMPORTS_PER_SOL);
+
+        while ((await connection.getBalance(funder.publicKey)) == 0) {
+            await new Promise((resolve, reject) => {
+                setTimeout(resolve, 1000);
+            });
+        }
+        console.log(`Airdropped 2 SOL to ${funder.publicKey.toBase58()}`);
+
+        await vault.write('secret/data/zee', {
+            data: {
+                funder: Buffer.from(funder.secretKey).toString('base64'),
+                mint: Buffer.from(mint.secretKey).toString('base64'),
+                mintAuthority: Buffer.from(mintAuthority.secretKey).toString(
+                    'base64'
+                )
+            }
+        });
+    } else {
+        vault = NodeVault({ endpoint: config.get('vault.url') });
+        await vault.approleLogin({
+            role_id: config.get('vault.role_id'),
+            secret_id: config.get('vault.secret_id')
+        });
+    }
+    return vault;
+}
