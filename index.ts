@@ -18,7 +18,10 @@ import {
 import assert from 'assert';
 import NodeVault from 'node-vault';
 
-const connection = new Connection(config.get('solana.url'));
+const connection = new Connection(
+    config.get('solana.url'),
+    config.get('solana.commitment')
+);
 
 const SUPPLY = 10_000_000_000_000;
 

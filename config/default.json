@@ -5,6 +5,7 @@
         "secret_id": ""
     },
     "solana": {
-        "url": "http://localhost:8899"
+        "url": "http://localhost:8899",
+        "commitment": "confirmed"
     }
 }
