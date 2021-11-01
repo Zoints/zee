@@ -15,19 +15,19 @@ import {
     Transaction
 } from '@solana/web3.js';
 import assert from 'assert';
-import NodeVault from 'node-vault';
 import { getConfig } from './config';
-
-const config = getConfig();
-
-const connection = new Connection(config.solana.url, config.solana.commitment);
 
 const SUPPLY = 10_000_000_000_000;
 
 (async () => {
-    console.log(config);
+    const config = getConfig();
 
-    // verify config values
+    const connection = new Connection(
+        config.solana.url,
+        config.solana.commitment
+    );
+
+    // Step 1: Verify Config Parameters
     let sum = config.staking.rewardPool;
     for (const recipient of config.payout) {
         sum += recipient.direct + recipient.vested;

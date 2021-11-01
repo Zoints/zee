@@ -66,6 +66,24 @@ export function getConfig(): Config {
             direct: Number(i.direct),
             vested: Number(i.vested)
         };
+
+        if (item.direct < 0) {
+            throw new Error(
+                `paying for "${item.name}" has negative direct payout`
+            );
+        }
+        if (item.vested < 0) {
+            throw new Error(
+                `paying for "${item.name}" has negative vested payout`
+            );
+        }
+
+        if (item.direct + item.vested == 0) {
+            throw new Error(
+                `payout for "${item.name}" has neither direct nor vested payout`
+            );
+        }
+
         payout.push(item);
     }
 
