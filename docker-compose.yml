@@ -3,15 +3,10 @@ version: '3'
 
 services:
     solana:
-        image: solanalabs/solana:beta
+        image: solanalabs/solana:v1.6.28
         ports:
-            - 8899:8899
-            - 8900:8900
-    vault:
-        image: vault:latest
-        environment: 
-            VAULT_DEV_ROOT_TOKEN_ID: zoints
-            VAULT_ADDR: http://127.0.0.1:8200
-        ports:
-            - 8200:8200
+            - 8899-8902:8899-8902/tcp
+            - 8001:8001/tcp
+            - 8000-8008:8000-8008/udp
+
 
