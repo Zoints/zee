@@ -1,11 +1,21 @@
 {
-    "vault": {
-        "url": "https://127.0.0.1:8200",
-        "role_id": "",
-        "secret_id": ""
-    },
     "solana": {
         "url": "http://localhost:8899",
         "commitment": "confirmed"
-    }
+    },
+    "treasury": {
+        "vestedPeriod": 0,
+        "vestedPercentage": 0
+    },
+    "staking": {
+        "programId": "11111111111111111111111111111111",
+        "amount": 5500000000
+    },
+    "payout": [
+        {
+            "address": "11111111111111111111111111111111",
+            "direct": 0,
+            "vested": 0
+        }
+    ]
 }
