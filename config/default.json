@@ -10,13 +10,13 @@
     },
     "staking": {
         "programId": "11111111111111111111111111111111",
-        "rewardPool": 5500000000
+        "rewardPool": 5500000000000
     },
     "payout": [
         {
             "name": "Zoints Member #1",
             "address": "11111111111111111111111111111111",
-            "direct": 0,
+            "direct": 4500000000000,
             "vested": 0
         }
     ]
