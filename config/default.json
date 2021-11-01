@@ -4,15 +4,17 @@
         "commitment": "confirmed"
     },
     "treasury": {
-        "vestedPeriod": 0,
-        "vestedPercentage": 0
+        "programId": "11111111111111111111111111111111",
+        "vestedPeriod": 60,
+        "vestedPercentage": 2000
     },
     "staking": {
         "programId": "11111111111111111111111111111111",
-        "amount": 5500000000
+        "rewardPool": 5500000000
     },
     "payout": [
         {
+            "name": "Zoints Member #1",
             "address": "11111111111111111111111111111111",
             "direct": 0,
             "vested": 0
