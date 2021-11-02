@@ -4,12 +4,12 @@
         "commitment": "confirmed"
     },
     "treasury": {
-        "programId": "11111111111111111111111111111111",
+        "programId": "9uYgeEQP3RDZg9TX5iaeoM9y4XZu22wa4jRpjCctDJbk",
         "vestedPeriod": 60,
         "vestedPercentage": 2000
     },
     "staking": {
-        "programId": "11111111111111111111111111111111",
+        "programId": "FBxGvPGn5248SUX6kV13MntjuGw3M5ka55kYPxg1Uju9",
         "rewardPool": 5500000000000
     },
     "payout": [
