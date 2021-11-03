@@ -1,6 +1,8 @@
 import config from 'config';
 import { Cluster, clusterApiUrl, Commitment, PublicKey } from '@solana/web3.js';
 
+export const SUPPLY = 10_000_000_000_000;
+
 export interface Payout {
     name: string;
     address: PublicKey;
@@ -12,6 +14,13 @@ export interface Config {
     solana: {
         url: string;
         commitment: Commitment;
+    };
+    vault: {
+        url: string;
+        login: 'token' | 'approle';
+        token?: string;
+        roleId?: string;
+        secretId?: string;
     };
     treasury: {
         programId: PublicKey;
@@ -58,6 +67,24 @@ export function getConfig(): Config {
     );
     const stakingRewardPool = Number(config.get<number>('staking.rewardPool'));
 
+    const vaultLogin = config.get<string>('vault.login');
+    let vault: any = {
+        url: config.get<string>('vault.url')
+    };
+    switch (vaultLogin) {
+        case 'login':
+            vault.login = 'login';
+            vault.token = config.get<string>('vault.token');
+            break;
+        case 'approle':
+            vault.login = 'approle';
+            vault.roleId = config.get<string>('vault.roleId');
+            vault.secretId = config.get<string>('vault.secretId');
+            break;
+        default:
+            throw new Error('unsupported vault login');
+    }
+
     const payout: Payout[] = [];
     for (const i of config.get<any[]>('payout')) {
         const item = {
@@ -89,6 +116,7 @@ export function getConfig(): Config {
 
     return {
         solana: { url: solanaURL, commitment: solanaCommitment },
+        vault,
         treasury: {
             programId: treasuryProgramId,
             vestedPeriod: treasuryVestedPeriod,

@@ -1,7 +1,13 @@
 {
+    "supply": 10000000000000,
     "solana": {
         "url": "http://localhost:8899",
         "commitment": "confirmed"
+    },
+    "vault": {
+        "url": "http://localhost:8200",
+        "login": "token",
+        "token": "zoints"
     },
     "treasury": {
         "programId": "9uYgeEQP3RDZg9TX5iaeoM9y4XZu22wa4jRpjCctDJbk",
