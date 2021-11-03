@@ -24,9 +24,13 @@ console.log(`Mint Authority: ${mintAuthority.publicKey.toBase58()}`);
     try {
         await vault.mount({ mount_point: 'transit', type: 'transit' });
     } catch (e) {}
-    await vault.write('transit/keys/dev_zoints_funder', { type: 'ed25519' });
+    await vault.write('transit/keys/development_zoints_funder', {
+        type: 'ed25519'
+    });
 
-    const { data: funder } = await vault.read('transit/keys/dev_zoints_funder');
+    const { data: funder } = await vault.read(
+        'transit/keys/development_zoints_funder'
+    );
     const pubkeyRaw = Buffer.from(
         funder.keys[funder.latest_version].public_key,
         'base64'
@@ -37,7 +41,7 @@ console.log(`Mint Authority: ${mintAuthority.publicKey.toBase58()}`);
     await connection.confirmTransaction(sig);
     console.log(`Airdropped 5 SOL to ${pubkey.toBase58()}`);
 
-    await vault.write('secret/data/dev_zee', {
+    await vault.write('secret/data/development_zee', {
         data: {
             mint: Buffer.from(mint.secretKey).toString('base64'),
             authority: Buffer.from(mintAuthority.secretKey).toString('base64')

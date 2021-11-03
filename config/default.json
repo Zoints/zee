@@ -6,8 +6,8 @@
     },
     "vault": {
         "url": "http://localhost:8200",
-        "funder": "transit/keys/dev_zoints_funder",
-        "zee": "secret/data/dev_zee",
+        "funder": "development_zoints_funder",
+        "zee": "development_zee",
         "login": "token",
         "token": "zoints"
     },
