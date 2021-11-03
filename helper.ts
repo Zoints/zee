@@ -45,7 +45,7 @@ export class Helper {
         await this.verifyProgramId('Treasury', this.config.treasury.programId);
     }
 
-    private async verifyProgramId(name: string, programId: PublicKey) {
+    public async verifyProgramId(name: string, programId: PublicKey) {
         const account = await this.connection.getAccountInfo(programId);
         if (account === null) {
             throw new Error(
