@@ -8,5 +8,11 @@ services:
             - 8899-8902:8899-8902/tcp
             - 8001:8001/tcp
             - 8000-8008:8000-8008/udp
-
+    vault:
+        image: vault:latest
+        environment: 
+            VAULT_DEV_ROOT_TOKEN_ID: zoints
+            VAULT_ADDR: http://127.0.0.1:8200
+        ports:
+            - 8200:8200
 
