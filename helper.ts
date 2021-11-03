@@ -1,4 +1,4 @@
-import { Connection, PublicKey } from '@solana/web3.js';
+import { Connection, Keypair, PublicKey } from '@solana/web3.js';
 import NodeVault from 'node-vault';
 import { Config, getConfig, SUPPLY } from './config';
 
@@ -59,14 +59,37 @@ export class Helper {
             );
         }
     }
+
+    public async getFunderPublicKey(): Promise<PublicKey> {
+        const { data: funder } = await this.vault.read(
+            this.config.vault.funder
+        );
+        const pubkeyRaw = Buffer.from(
+            funder.keys[funder.latest_version].public_key,
+            'base64'
+        );
+        return new PublicKey(pubkeyRaw);
+    }
+
+    public async getMintKeys(): Promise<{ mint: Keypair; authority: Keypair }> {
+        const { data: zee } = await this.vault.read(this.config.vault.zee);
+        return {
+            mint: Keypair.fromSecretKey(Buffer.from(zee.data.mint, 'base64')),
+            authority: Keypair.fromSecretKey(
+                Buffer.from(zee.data.authority, 'base64')
+            )
+        };
+    }
 }
 
 export async function CreateHelper(): Promise<Helper> {
     const helper = new Helper();
     helper.verify();
-    await helper.vault.approleLogin({
-        role_id: helper.config.vault.roleId,
-        secret_id: helper.config.vault.secretId
-    });
+    if (helper.config.vault.login === 'approle') {
+        await helper.vault.approleLogin({
+            role_id: helper.config.vault.roleId,
+            secret_id: helper.config.vault.secretId
+        });
+    }
     return helper;
 }

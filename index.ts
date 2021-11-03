@@ -1,25 +1,18 @@
-// add vault later
-import {
-    ASSOCIATED_TOKEN_PROGRAM_ID,
-    MintLayout,
-    Token,
-    TOKEN_PROGRAM_ID
-} from '@solana/spl-token';
-import {
-    Connection,
-    Keypair,
-    LAMPORTS_PER_SOL,
-    PublicKey,
-    sendAndConfirmTransaction,
-    SystemProgram,
-    Transaction
-} from '@solana/web3.js';
-import assert from 'assert';
-import { getConfig } from './config';
-import { Helper } from './helper';
+import { LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { CreateHelper } from './helper';
 
-const helper = new Helper();
+(async () => {
+    const helper = await CreateHelper();
 
-(async () => {})()
+    const funder = await helper.getFunderPublicKey();
+    const balance = await helper.connection.getBalance(funder);
+    console.log(
+        `Funder: ${funder.toBase58()} (${balance / LAMPORTS_PER_SOL} SOL)`
+    );
+
+    const { mint, authority } = await helper.getMintKeys();
+    console.log(`Mint: ${mint.publicKey.toBase58()}`);
+    console.log(`Mint Authority: ${authority.publicKey.toBase58()}`);
+})()
     .catch((e) => console.error(`FATAL ERROR: ${e.message}`))
     .then(() => process.exit(0));

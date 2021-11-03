@@ -18,6 +18,8 @@ export interface Config {
     vault: {
         url: string;
         login: 'token' | 'approle';
+        funder: string;
+        zee: string;
         token?: string;
         roleId?: string;
         secretId?: string;
@@ -69,11 +71,13 @@ export function getConfig(): Config {
 
     const vaultLogin = config.get<string>('vault.login');
     let vault: any = {
-        url: config.get<string>('vault.url')
+        url: config.get<string>('vault.url'),
+        funder: config.get<string>('vault.funder'),
+        zee: config.get<string>('vault.zee')
     };
     switch (vaultLogin) {
-        case 'login':
-            vault.login = 'login';
+        case 'token':
+            vault.login = 'token';
             vault.token = config.get<string>('vault.token');
             break;
         case 'approle':

@@ -37,7 +37,7 @@ console.log(`Mint Authority: ${mintAuthority.publicKey.toBase58()}`);
     await connection.confirmTransaction(sig);
     console.log(`Airdropped 5 SOL to ${pubkey.toBase58()}`);
 
-    await vault.write('secret/data/zee', {
+    await vault.write('secret/data/dev_zee', {
         data: {
             mint: Buffer.from(mint.secretKey).toString('base64'),
             authority: Buffer.from(mintAuthority.secretKey).toString('base64')
