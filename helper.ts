@@ -65,7 +65,7 @@ export class Helper {
     public async getFunderPublicKey(): Promise<PublicKey> {
         if (this.funder === undefined) {
             const { data: funder } = await this.vault.read(
-                `transit/keys/${this.config.vault.funder}`
+                `/transit/keys/${this.config.vault.funder}`
             );
             const pubkeyRaw = Buffer.from(
                 funder.keys[funder.latest_version].public_key,
@@ -81,13 +81,11 @@ export class Helper {
 
         const result = await this.vault.request({
             method: 'POST',
-            path: `transit/sign/${this.config.vault.funder}`,
+            path: `/transit/sign/${this.config.vault.funder}`,
             body: {
                 input: tx.serializeMessage().toString('base64')
             }
         });
-
-        console.log(result.data.signature);
 
         const sig = Buffer.from(result.data.signature.split(':')[2], 'base64');
         tx.addSignature(funder, sig);
@@ -97,7 +95,7 @@ export class Helper {
 
     public async getMintKeys(): Promise<{ mint: Keypair; authority: Keypair }> {
         const { data: zee } = await this.vault.read(
-            `secret/data/${this.config.vault.zee}`
+            `/secret/data/${this.config.vault.zee}`
         );
         return {
             mint: Keypair.fromSecretKey(Buffer.from(zee.data.mint, 'base64')),
