@@ -104,6 +104,40 @@ export class Helper {
             )
         };
     }
+
+    public async signAndVerify(tx: Transaction) {
+        const funder = await this.getFunderPublicKey();
+        const { mint, authority } = await this.getMintKeys();
+
+        tx.feePayer = funder;
+        tx.recentBlockhash = (
+            await this.connection.getRecentBlockhash()
+        ).blockhash;
+
+        tx = await this.signWithFunder(tx);
+
+        for (const sigpair of tx.signatures) {
+            if (sigpair.publicKey.equals(mint.publicKey)) {
+                tx.partialSign(mint);
+            }
+
+            if (sigpair.publicKey.equals(authority.publicKey)) {
+                tx.partialSign(authority);
+            }
+        }
+
+        const txsig = await this.connection.sendRawTransaction(tx.serialize());
+        console.log(`\nTransaction sent: ${txsig}`);
+
+        const confirmation = await this.connection.confirmTransaction(txsig);
+        if (confirmation.value.err !== null) {
+            throw new Error(
+                `Transaction confirmation failed: ${confirmation.value.err}`
+            );
+        } else {
+            console.log(`Transaction confirmed`);
+        }
+    }
 }
 
 export async function CreateHelper(): Promise<Helper> {

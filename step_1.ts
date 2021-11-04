@@ -35,25 +35,7 @@ console.log(`==========================`);
         )
     );
 
-    tx.feePayer = funder;
-    tx.recentBlockhash = (
-        await helper.connection.getRecentBlockhash()
-    ).blockhash;
-
-    tx = await helper.signWithFunder(tx);
-    tx.partialSign(mint);
-
-    const txsig = await helper.connection.sendRawTransaction(tx.serialize());
-    console.log(`\nTransaction sent: ${txsig}`);
-
-    const confirmation = await helper.connection.confirmTransaction(txsig);
-    if (confirmation.value.err !== null) {
-        console.log(
-            `Transaction confirmation failed: ${confirmation.value.err}`
-        );
-    } else {
-        console.log(`Transaction confirmed`);
-    }
+    await helper.signAndVerify(tx);
 })()
     .catch((e) => console.error(`FATAL ERROR: ${e.message}`))
     .then(() => process.exit(0));
