@@ -1,4 +1,4 @@
-import { Connection, LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { CreateHelper } from './helper';
 
 console.log(`ZEE DEPLOYMENT INFORMATION`);

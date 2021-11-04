@@ -111,8 +111,8 @@ export async function CreateHelper(): Promise<Helper> {
     helper.verify();
     if (helper.config.vault.login === 'approle') {
         await helper.vault.approleLogin({
-            role_id: helper.config.vault.roleId,
-            secret_id: helper.config.vault.secretId
+            role_id: process.env.ROLE_ID,
+            secret_id: process.env.SECRET_ID
         });
     }
     return helper;

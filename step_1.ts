@@ -1,10 +1,5 @@
 import { MintLayout, Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import {
-    Connection,
-    LAMPORTS_PER_SOL,
-    SystemProgram,
-    Transaction
-} from '@solana/web3.js';
+import { SystemProgram, Transaction } from '@solana/web3.js';
 import { CreateHelper } from './helper';
 
 console.log(`ZEE DEPLOYMENT STEP 1`);

@@ -21,8 +21,6 @@ export interface Config {
         funder: string;
         zee: string;
         token?: string;
-        roleId?: string;
-        secretId?: string;
     };
     treasury: {
         programId: PublicKey;
@@ -82,8 +80,6 @@ export function getConfig(): Config {
             break;
         case 'approle':
             vault.login = 'approle';
-            vault.roleId = config.get<string>('vault.roleId');
-            vault.secretId = config.get<string>('vault.secretId');
             break;
         default:
             throw new Error('unsupported vault login');
