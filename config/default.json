@@ -23,9 +23,14 @@
     "payout": [
         {
             "name": "Zoints Member #1",
-            "address": "11111111111111111111111111111111",
-            "direct": 4500000000000,
-            "vested": 0
+            "direct": {
+                "amount": 4000000000000,
+                "address": "2t8kgQCBm1h4fPCgqLTUF8rXmfKRnva7UVtMrdDnMSka"
+            },
+            "vested": {
+                "amount": 500000000000,
+                "address": "2t8kgQCBm1h4fPCgqLTUF8rXmfKRnva7UVtMrdDnMSka"
+            }
         }
     ]
 }

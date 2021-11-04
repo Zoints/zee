@@ -5,9 +5,12 @@ export const SUPPLY = 10_000_000_000_000;
 
 export interface Payout {
     name: string;
+    direct: PayoutAmount;
+    vested: PayoutAmount;
+}
+export interface PayoutAmount {
+    amount: number;
     address: PublicKey;
-    direct: number;
-    vested: number;
 }
 
 export interface Config {
@@ -87,25 +90,40 @@ export function getConfig(): Config {
 
     const payout: Payout[] = [];
     for (const i of config.get<any[]>('payout')) {
-        const item = {
+        const item: Payout = {
             name: i.name,
-            address: new PublicKey(i.address),
-            direct: Number(i.direct),
-            vested: Number(i.vested)
+            direct: {
+                amount: 0,
+                address: PublicKey.default
+            },
+            vested: {
+                amount: 0,
+                address: PublicKey.default
+            }
         };
 
-        if (item.direct < 0) {
+        if (i.direct.amount !== undefined) {
+            item.direct.amount = Number(i.direct.amount);
+            item.direct.address = new PublicKey(i.direct.address);
+        }
+
+        if (i.vested.amount !== undefined) {
+            item.vested.amount = Number(i.vested.amount);
+            item.vested.address = new PublicKey(i.vested.address);
+        }
+
+        if (item.direct.amount < 0) {
             throw new Error(
                 `paying for "${item.name}" has negative direct payout`
             );
         }
-        if (item.vested < 0) {
+        if (item.vested.amount < 0) {
             throw new Error(
                 `paying for "${item.name}" has negative vested payout`
             );
         }
 
-        if (item.direct + item.vested == 0) {
+        if (item.direct.amount + item.vested.amount == 0) {
             throw new Error(
                 `payout for "${item.name}" has neither direct nor vested payout`
             );
