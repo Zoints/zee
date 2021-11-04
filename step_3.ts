@@ -1,7 +1,12 @@
-import { MintLayout, Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import { SystemProgram, Transaction } from '@solana/web3.js';
+import {
+    ASSOCIATED_TOKEN_PROGRAM_ID,
+    MintLayout,
+    Token,
+    TOKEN_PROGRAM_ID
+} from '@solana/spl-token';
+import { Keypair, SystemProgram, Transaction } from '@solana/web3.js';
 import { Staking } from '@zoints/staking';
-import { Settings, Treasury } from '@zoints/treasury';
+import { Settings, Treasury, TreasuryInstruction } from '@zoints/treasury';
 import { CreateHelper } from './helper';
 
 console.log(`ZEE DEPLOYMENT STEP 3`);
@@ -9,6 +14,7 @@ console.log(`==========================`);
 (async () => {
     const helper = await CreateHelper();
     await helper.verifyBlockchain();
+    const funder = await helper.getFunderPublicKey();
     const { mint, authority } = await helper.getMintKeys();
 
     const staking = new Staking(
@@ -60,6 +66,56 @@ console.log(`==========================`);
     );
 
     // await helper.signAndVerify(rewardTx);
+
+    for (const payout of helper.config.payout) {
+        const tx = new Transaction();
+
+        console.log(`Payout for ${payout.name}`);
+        if (payout.direct.amount > 0) {
+            const assoc = await Token.getAssociatedTokenAddress(
+                ASSOCIATED_TOKEN_PROGRAM_ID,
+                TOKEN_PROGRAM_ID,
+                mint.publicKey,
+                payout.direct.address,
+                true
+            );
+            tx.add(
+                Token.createMintToInstruction(
+                    TOKEN_PROGRAM_ID,
+                    mint.publicKey,
+                    assoc,
+                    authority.publicKey,
+                    [],
+                    payout.direct.amount
+                )
+            );
+
+            console.log(`    Direct: ${payout.direct.amount} ZEE`);
+            console.log(`   Address: ${payout.direct.address.toBase58()}`);
+            console.log(``);
+        }
+
+        if (payout.vested.amount > 0) {
+            const treasury = new Keypair(); // TODO - these need to sign
+
+            tx.add(
+                ...(await TreasuryInstruction.CreateVestedTreasuryAndFundAccount(
+                    helper.config.treasury.programId,
+                    funder,
+                    treasury.publicKey,
+                    payout.vested.address,
+                    mint.publicKey,
+                    BigInt(payout.vested.amount),
+                    BigInt(helper.config.treasury.vestedPeriod),
+                    helper.config.treasury.vestedPercentage
+                ))
+            );
+
+            console.log(`    Vested: ${payout.vested.amount} ZEE`);
+            console.log(`   Address: ${payout.vested.address.toBase58()}`);
+            console.log(``);
+        }
+    }
 })()
     .catch((e) => console.error(`FATAL ERROR: ${e.message}`))
     .then(() => process.exit(0));

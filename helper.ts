@@ -32,7 +32,7 @@ export class Helper {
     public verify() {
         let sum = this.config.staking.rewardPool;
         for (const recipient of this.config.payout) {
-            sum += recipient.direct + recipient.vested;
+            sum += recipient.direct.amount + recipient.vested.amount;
         }
 
         if (sum != SUPPLY) {
