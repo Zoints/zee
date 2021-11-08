@@ -5,6 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "start": "ts-node index.ts",
+    "step1": "ts-node step_1.ts",
+    "step3": "ts-node step_3.ts",
+    "step4": "ts-node step_4.ts",
     "lint": "eslint index.ts src",
     "prettier-format": "prettier --config .prettierrc '**/*.ts' --write",
     "prettier-ci": "prettier --config .prettierrc '**/*.ts' --list-different"
@@ -13,19 +16,21 @@
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
-    "@types/config": "^0.0.38",
-    "@types/node": "^14.14.35",
+    "@types/config": "^0.0.40",
+    "@types/node": "^16.11.6",
     "@types/node-vault": "^0.9.13",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "@typescript-eslint/parser": "^4.19.0",
-    "eslint": "^7.22.0",
-    "prettier": "^2.2.1",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.2.3"
+    "@typescript-eslint/eslint-plugin": "^5.2.0",
+    "@typescript-eslint/parser": "^5.2.0",
+    "eslint": "^8.1.0",
+    "prettier": "^2.4.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@solana/spl-token": "^0.1.6",
-    "@solana/web3.js": "^1.18.0",
+    "@solana/spl-token": "^0.1.8",
+    "@solana/web3.js": "^1.30.2",
+    "@zoints/staking": "^1.0.2",
+    "@zoints/treasury": "^1.0.0",
     "config": "^3.3.6",
     "node-vault": "^0.9.22"
   }

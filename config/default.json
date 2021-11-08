@@ -1,11 +1,191 @@
 {
-    "vault": {
-        "url": "https://127.0.0.1:8200",
-        "role_id": "",
-        "secret_id": ""
-    },
+    "supply": 10000000000000,
     "solana": {
         "url": "http://localhost:8899",
         "commitment": "confirmed"
-    }
+    },
+    "vault": {
+        "url": "http://localhost:8200",
+        "funder": "development_zoints_funder",
+        "zee": "development_zee",
+        "login": "token",
+        "token": "zoints"
+    },
+    "treasury": {
+        "programId": "9uYgeEQP3RDZg9TX5iaeoM9y4XZu22wa4jRpjCctDJbk",
+        "vestedPeriod": 60,
+        "vestedPercentage": 2000
+    },
+    "staking": {
+        "programId": "FBxGvPGn5248SUX6kV13MntjuGw3M5ka55kYPxg1Uju9",
+        "rewardPool": 5500000000000
+    },
+    "payout": [
+        {
+            "name": "Early Adopter Fund",
+            "direct": {
+                "amount": 400000000000,
+                "address": "FNnDoW4fjK1369kn9ZosyaSQDn4qmE4xaK531si4pnEa"
+            }
+        },
+        {
+            "name": "Partners",
+            "direct": {
+                "amount": 350000000000,
+                "address": "Bgb6vyG3qUqVvcqV4Y8AQaz7Mfctcd5nBVAkT5Pt75PL"
+            }
+        },
+        {
+            "name": "Reserve",
+            "direct": {
+                "amount": 2150000000000,
+                "address": "8hbG5CvSLz99BSbv9iYstYrcdDR7GdT5jzSvQS6LHVfY"
+            }
+        },
+        {
+            "name": "Zoints Member #1",
+            "direct": {
+                "amount": 20000000000,
+                "address": "GejCJVyhb8nr9Xxf1eXctsbCXVp8h8utqvsr7AuCdY5d"
+            },
+            "vested": {
+                "amount": 772200000000,
+                "address": "5UnEyasrdiNsM2bx6gGRyFdbRfJjyFpZZvAFg4KrajrK"
+            }
+        },
+        {
+            "name": "Zoints Member #2",
+            "direct": {
+                "amount": 20000000000,
+                "address": "E5W55HmBNvrJee4UxjeuByxH5CTRcFtK9vTSgaCft8N2"
+            },
+            "vested": {
+                "amount": 130000000000,
+                "address": "E5W55HmBNvrJee4UxjeuByxH5CTRcFtK9vTSgaCft8N2"
+            }
+        },
+        {
+            "name": "Zoints Member #3",
+            "direct": {
+                "amount": 20000000000,
+                "address": "HPL4WyQ97hnhP88kSyH2VPhV1U95qZuemUJogY6VXHYQ"
+            },
+            "vested": {
+                "amount": 130000000000,
+                "address": "HPL4WyQ97hnhP88kSyH2VPhV1U95qZuemUJogY6VXHYQ"
+            }
+        },
+        {
+            "name": "Zoints Member #4",
+            "direct": {
+                "amount": 20000000000,
+                "address": "RSoT74BPevsMD2M3tBgfZy4xwdwHAGxacRea99DD4MP"
+            },
+            "vested": {
+                "amount": 80000000000,
+                "address": "RSoT74BPevsMD2M3tBgfZy4xwdwHAGxacRea99DD4MP"
+            }
+        },
+        {
+            "name": "Zoints Member #5",
+            "direct": {
+                "amount": 6000000000,
+                "address": "7barJ7QEkbnkGGwme3VwvP92cufZrusRjAoeLBoNsuht"
+            },
+            "vested": {
+                "amount": 50000000000,
+                "address": "7barJ7QEkbnkGGwme3VwvP92cufZrusRjAoeLBoNsuht"
+            }
+        },
+        {
+            "name": "Zoints Member #6",
+            "direct": {
+                "amount": 5000000000,
+                "address": "EUSgMowCeP1BmDXDeCDc7VeQrAotAkMYuP22Cq47zQkG"
+            },
+            "vested": {
+                "amount": 40000000000,
+                "address": "EUSgMowCeP1BmDXDeCDc7VeQrAotAkMYuP22Cq47zQkG"
+            }
+        },
+        {
+            "name": "Zoints Member #7",
+            "direct": {
+                "amount": 20000000000,
+                "address": "8mmwqZkyEDhRQrFj4wcRarGfyg3fsEQ6cU8Dd8sLRDya"
+            },
+            "vested": {
+                "amount": 17500000000,
+                "address": "8mmwqZkyEDhRQrFj4wcRarGfyg3fsEQ6cU8Dd8sLRDya"
+            }
+        },
+        {
+            "name": "Zoints Member #8",
+            "direct": {
+                "amount": 17000000000,
+                "address": "4iDdTfUT4Wb2QR7xq28mBHYMKzDRpRMJTmVSjpGUEmV5"
+            },
+            "vested": {
+                "amount": 150000000000,
+                "address": "4iDdTfUT4Wb2QR7xq28mBHYMKzDRpRMJTmVSjpGUEmV5"
+            }
+        },
+        {
+            "name": "Zoints Member #9",
+            "direct": {
+                "amount": 20000000000,
+                "address": "3w2F5av4g5m6M429bHaLD76AFVVBhLpJmjEHuFx5EcdS"
+            }
+        },
+        {
+            "name": "Zoints Member #10",
+            "vested": {
+                "amount": 300000000,
+                "address": "ABovdrgtbkT1MMoFWSZixYu9mmhrajH9KkC4YaecymN7"
+            }
+        },
+        {
+            "name": "Zoints Member #11",
+            "direct": {
+                "amount": 15000000000,
+                "address": "FWCcqzSzFttWzecR2GnCZasLXrcoT4BwwMDk5FyZGwEd"
+            },
+            "vested": {
+                "amount": 10000000000,
+                "address": "FWCcqzSzFttWzecR2GnCZasLXrcoT4BwwMDk5FyZGwEd"
+            }
+        },
+        {
+            "name": "Zoints Member #12",
+            "vested": {
+                "amount": 5000000000,
+                "address": "5mi7AWrFfRVLokZ9oS6NdFW4kMCdbtyNZvSYCv6ytYs2"
+            }
+        },
+        {
+            "name": "Zoints Member #13",
+            "vested": {
+                "amount": 40000000000,
+                "address": "7uKFXz8QuQjyA5qDjLs4U4wvgjp4JfcL1Rr2PCkJ1Lca"
+            }
+        },
+        {
+            "name": "Zoints Member #14",
+            "vested": {
+                "amount": 2000000000,
+                "address": "7rAqy3rAB2Xe2WB43nsPgAtxkrWrZwSz7LAXdGuNgMc4"
+            }
+        },
+        {
+            "name": "Zoints Member #15",
+            "direct": {
+                "amount": 1000000000,
+                "address": "6coC6K21YUUFRJ2UGGYrnxRMCqzVnu8GWaD7gjTFHeJT"
+            },
+            "vested": {
+                "amount": 9000000000,
+                "address": "6coC6K21YUUFRJ2UGGYrnxRMCqzVnu8GWaD7gjTFHeJT"
+            }
+        }
+    ]
 }
