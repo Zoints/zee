@@ -71,6 +71,7 @@ console.log(`==========================`);
         const additionalSigners: Keypair[] = [];
 
         console.log(`Payout for ${payout.name}`);
+        console.log(`================================`);
         if (payout.direct.amount > 0) {
             const assoc = await Token.getAssociatedTokenAddress(
                 ASSOCIATED_TOKEN_PROGRAM_ID,
@@ -118,6 +119,7 @@ console.log(`==========================`);
         }
 
         // await helper.signAndVerify(rewardTx, additionalSigners);
+        console.log(`================================`);
     }
 })()
     .catch((e) => console.error(`FATAL ERROR: ${e.message}`))

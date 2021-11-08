@@ -30,8 +30,29 @@ export class Helper {
     }
 
     public verify() {
+        const duplicate = new Map<string, boolean>();
         let sum = this.config.staking.rewardPool;
         for (const recipient of this.config.payout) {
+            if (
+                recipient.direct.amount > 0 &&
+                duplicate.get(recipient.direct.address.toBase58()) === true
+            ) {
+                throw new Error(
+                    `duplicate payout in ${recipient.name} to address ${recipient.direct.address}`
+                );
+            }
+            if (
+                recipient.vested.amount > 0 &&
+                duplicate.get(recipient.vested.address.toBase58()) === true
+            ) {
+                throw new Error(
+                    `duplicate payout in ${recipient.name} to address ${recipient.vested.address}`
+                );
+            }
+
+            duplicate.set(recipient.direct.address.toBase58(), true);
+            duplicate.set(recipient.vested.address.toBase58(), true);
+
             sum += recipient.direct.amount + recipient.vested.amount;
         }
 

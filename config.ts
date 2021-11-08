@@ -102,28 +102,36 @@ export function getConfig(): Config {
             }
         };
 
-        if (i.direct.amount !== undefined) {
-            item.direct.amount = Number(i.direct.amount);
-            item.direct.address = new PublicKey(i.direct.address);
+        let sum = 0;
+
+        if (i.direct !== undefined) {
+            if (i.direct.amount !== undefined) {
+                item.direct.amount = Number(i.direct.amount);
+                item.direct.address = new PublicKey(i.direct.address);
+            }
+            if (item.direct.amount < 0) {
+                throw new Error(
+                    `paying for "${item.name}" has negative direct payout`
+                );
+            }
+            sum += item.direct.amount;
         }
 
-        if (i.vested.amount !== undefined) {
-            item.vested.amount = Number(i.vested.amount);
-            item.vested.address = new PublicKey(i.vested.address);
+        if (i.vested !== undefined) {
+            if (i.vested.amount !== undefined) {
+                item.vested.amount = Number(i.vested.amount);
+                item.vested.address = new PublicKey(i.vested.address);
+            }
+
+            if (item.vested.amount < 0) {
+                throw new Error(
+                    `paying for "${item.name}" has negative vested payout`
+                );
+            }
+            sum += item.vested.amount;
         }
 
-        if (item.direct.amount < 0) {
-            throw new Error(
-                `paying for "${item.name}" has negative direct payout`
-            );
-        }
-        if (item.vested.amount < 0) {
-            throw new Error(
-                `paying for "${item.name}" has negative vested payout`
-            );
-        }
-
-        if (item.direct.amount + item.vested.amount == 0) {
+        if (sum == 0) {
             throw new Error(
                 `payout for "${item.name}" has neither direct nor vested payout`
             );
