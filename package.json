@@ -7,6 +7,7 @@
     "start": "ts-node index.ts",
     "step1": "ts-node step_1.ts",
     "step3": "ts-node step_3.ts",
+    "step4": "ts-node step_4.ts",
     "lint": "eslint index.ts src",
     "prettier-format": "prettier --config .prettierrc '**/*.ts' --write",
     "prettier-ci": "prettier --config .prettierrc '**/*.ts' --list-different"

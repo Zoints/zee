@@ -147,7 +147,7 @@ export class Helper {
             }
         }
 
-        if (additional !== undefined) {
+        if (additional !== undefined && additional.length > 0) {
             tx.partialSign(...additional);
         }
 

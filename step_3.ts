@@ -64,7 +64,7 @@ console.log(`==========================`);
         )
     );
 
-    // await helper.signAndVerify(rewardTx);
+    await helper.signAndVerify(rewardTx);
 
     for (const payout of helper.config.payout) {
         const tx = new Transaction();
@@ -81,6 +81,14 @@ console.log(`==========================`);
                 true
             );
             tx.add(
+                Token.createAssociatedTokenAccountInstruction(
+                    ASSOCIATED_TOKEN_PROGRAM_ID,
+                    TOKEN_PROGRAM_ID,
+                    mint.publicKey,
+                    assoc,
+                    payout.direct.address,
+                    funder
+                ),
                 Token.createMintToInstruction(
                     TOKEN_PROGRAM_ID,
                     mint.publicKey,
@@ -99,6 +107,14 @@ console.log(`==========================`);
         if (payout.vested.amount > 0) {
             const treasury = new Keypair();
             additionalSigners.push(treasury);
+
+            const treasuryAssoc =
+                await Treasury.vestedTreasuryAssociatedAccount(
+                    treasury.publicKey,
+                    mint.publicKey,
+                    helper.config.treasury.programId
+                );
+
             tx.add(
                 ...(await TreasuryInstruction.CreateVestedTreasuryAndFundAccount(
                     helper.config.treasury.programId,
@@ -109,7 +125,15 @@ console.log(`==========================`);
                     BigInt(payout.vested.amount),
                     BigInt(helper.config.treasury.vestedPeriod),
                     helper.config.treasury.vestedPercentage
-                ))
+                )),
+                Token.createMintToInstruction(
+                    TOKEN_PROGRAM_ID,
+                    mint.publicKey,
+                    treasuryAssoc.fund,
+                    authority.publicKey,
+                    [],
+                    payout.vested.amount
+                )
             );
 
             console.log(` Treasury: ${treasury.publicKey.toBase58()}`);
@@ -118,8 +142,9 @@ console.log(`==========================`);
             console.log(``);
         }
 
-        // await helper.signAndVerify(rewardTx, additionalSigners);
+        await helper.signAndVerify(tx, additionalSigners);
         console.log(`================================`);
+        console.log();
     }
 })()
     .catch((e) => console.error(`FATAL ERROR: ${e.message}`))
