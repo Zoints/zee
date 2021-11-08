@@ -105,7 +105,7 @@ export class Helper {
         };
     }
 
-    public async signAndVerify(tx: Transaction) {
+    public async signAndVerify(tx: Transaction, additional?: Keypair[]) {
         const funder = await this.getFunderPublicKey();
         const { mint, authority } = await this.getMintKeys();
 
@@ -124,6 +124,10 @@ export class Helper {
             if (sigpair.publicKey.equals(authority.publicKey)) {
                 tx.partialSign(authority);
             }
+        }
+
+        if (additional !== undefined) {
+            tx.partialSign(...additional);
         }
 
         const txsig = await this.connection.sendRawTransaction(tx.serialize());

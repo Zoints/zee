@@ -1,10 +1,9 @@
 import {
     ASSOCIATED_TOKEN_PROGRAM_ID,
-    MintLayout,
     Token,
     TOKEN_PROGRAM_ID
 } from '@solana/spl-token';
-import { Keypair, SystemProgram, Transaction } from '@solana/web3.js';
+import { Keypair, Transaction } from '@solana/web3.js';
 import { Staking } from '@zoints/staking';
 import { Settings, Treasury, TreasuryInstruction } from '@zoints/treasury';
 import { CreateHelper } from './helper';
@@ -69,6 +68,7 @@ console.log(`==========================`);
 
     for (const payout of helper.config.payout) {
         const tx = new Transaction();
+        const additionalSigners: Keypair[] = [];
 
         console.log(`Payout for ${payout.name}`);
         if (payout.direct.amount > 0) {
@@ -96,8 +96,8 @@ console.log(`==========================`);
         }
 
         if (payout.vested.amount > 0) {
-            const treasury = new Keypair(); // TODO - these need to sign
-
+            const treasury = new Keypair();
+            additionalSigners.push(treasury);
             tx.add(
                 ...(await TreasuryInstruction.CreateVestedTreasuryAndFundAccount(
                     helper.config.treasury.programId,
@@ -111,10 +111,13 @@ console.log(`==========================`);
                 ))
             );
 
-            console.log(`    Vested: ${payout.vested.amount} ZEE`);
-            console.log(`   Address: ${payout.vested.address.toBase58()}`);
+            console.log(` Treasury: ${treasury.publicKey.toBase58()}`);
+            console.log(`   Vested: ${payout.vested.amount} ZEE`);
+            console.log(`  Address: ${payout.vested.address.toBase58()}`);
             console.log(``);
         }
+
+        // await helper.signAndVerify(rewardTx, additionalSigners);
     }
 })()
     .catch((e) => console.error(`FATAL ERROR: ${e.message}`))
