@@ -30,7 +30,7 @@
     "@solana/spl-token": "^0.1.8",
     "@solana/web3.js": "^1.30.2",
     "@zoints/staking": "^1.0.2",
-    "@zoints/treasury": "^1.0.0",
+    "@zoints/treasury": "^1.1.0",
     "config": "^3.3.6",
     "node-vault": "^0.9.22"
   }

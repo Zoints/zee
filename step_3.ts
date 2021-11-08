@@ -5,7 +5,7 @@ import {
 } from '@solana/spl-token';
 import { Keypair, Transaction } from '@solana/web3.js';
 import { Staking } from '@zoints/staking';
-import { Settings, Treasury, TreasuryInstruction } from '@zoints/treasury';
+import { Treasury, TreasuryInstruction } from '@zoints/treasury';
 import { CreateHelper } from './helper';
 
 console.log(`ZEE DEPLOYMENT STEP 3`);
@@ -29,22 +29,6 @@ console.log(`==========================`);
     if (!stakingSettings.token.equals(mint.publicKey)) {
         throw new Error(
             `Staking program has been initialized for a different mint`
-        );
-    }
-
-    const treasury = new Treasury(
-        helper.connection,
-        helper.config.treasury.programId
-    );
-    let treasurySettings: Settings;
-    try {
-        treasurySettings = await treasury.getSettings();
-    } catch (e) {
-        throw new Error(`Treasury program has not been initialized`);
-    }
-    if (!treasurySettings.token.equals(mint.publicKey)) {
-        throw new Error(
-            `Treasury program has been initialized for a different mint`
         );
     }
 
@@ -118,10 +102,10 @@ console.log(`==========================`);
             tx.add(
                 ...(await TreasuryInstruction.CreateVestedTreasuryAndFundAccount(
                     helper.config.treasury.programId,
+                    mint.publicKey,
                     funder,
                     treasury.publicKey,
                     payout.vested.address,
-                    mint.publicKey,
                     BigInt(payout.vested.amount),
                     BigInt(helper.config.treasury.vestedPeriod),
                     helper.config.treasury.vestedPercentage
