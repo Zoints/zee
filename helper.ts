@@ -119,9 +119,9 @@ export class Helper {
             `/secret/data/${this.config.vault.zee}`
         );
         return {
-            mint: Keypair.fromSecretKey(Buffer.from(zee.data.mint, 'base64')),
+            mint: Keypair.fromSecretKey(Buffer.from(zee.data.mint, 'hex')),
             authority: Keypair.fromSecretKey(
-                Buffer.from(zee.data.authority, 'base64')
+                Buffer.from(zee.data.authority, 'hex')
             )
         };
     }
@@ -173,6 +173,8 @@ export async function CreateHelper(): Promise<Helper> {
             role_id: process.env.ROLE_ID,
             secret_id: process.env.SECRET_ID
         });
+    } else if (helper.config.vault.login == 'github') {
+        await helper.vault.githubLogin({ token: process.env.TOKEN });
     }
     return helper;
 }

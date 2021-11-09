@@ -52,7 +52,7 @@ console.log(`Mint Authority: ${mintAuthority.publicKey.toBase58()}`);
     );
     const pubkeyRaw = Buffer.from(
         funder.keys[funder.latest_version].public_key,
-        'base64'
+        'hex'
     );
     const pubkey = new PublicKey(pubkeyRaw);
 
@@ -62,8 +62,8 @@ console.log(`Mint Authority: ${mintAuthority.publicKey.toBase58()}`);
 
     await vault.write('secret/data/development_zee', {
         data: {
-            mint: Buffer.from(mint.secretKey).toString('base64'),
-            authority: Buffer.from(mintAuthority.secretKey).toString('base64')
+            mint: Buffer.from(mint.secretKey).toString('hex'),
+            authority: Buffer.from(mintAuthority.secretKey).toString('hex')
         }
     });
 })().then(() => process.exit(0));
