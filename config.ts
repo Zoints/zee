@@ -20,7 +20,7 @@ export interface Config {
     };
     vault: {
         url: string;
-        login: 'token' | 'approle';
+        login: 'token' | 'approle' | 'github';
         funder: string;
         zee: string;
         token?: string;
@@ -83,6 +83,9 @@ export function getConfig(): Config {
             break;
         case 'approle':
             vault.login = 'approle';
+            break;
+        case 'github':
+            vault.login = 'github';
             break;
         default:
             throw new Error('unsupported vault login');
