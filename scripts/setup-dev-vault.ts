@@ -52,7 +52,7 @@ console.log(`Mint Authority: ${mintAuthority.publicKey.toBase58()}`);
     );
     const pubkeyRaw = Buffer.from(
         funder.keys[funder.latest_version].public_key,
-        'hex'
+        'base64'
     );
     const pubkey = new PublicKey(pubkeyRaw);
 
