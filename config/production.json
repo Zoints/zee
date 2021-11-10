@@ -16,7 +16,7 @@
         "vestedPercentage": 300
     },
     "staking": {
-        "programId": "tbd",
+        "programId": "12fZgSYp7HLum4miHXiDmw9W9XYeCAsAuzgNQsyxUsNA",
         "rewardPool": 5500000000000
     },
     "payout": [
