@@ -1,4 +1,5 @@
 import { LAMPORTS_PER_SOL } from '@solana/web3.js';
+import { Staking } from '@zoints/staking';
 import { CreateHelper } from './helper';
 
 console.log(`ZEE DEPLOYMENT INFORMATION`);
@@ -23,15 +24,28 @@ console.log(`==========================`);
 
     console.log(`Staking`);
     let loaded = false;
+    let initialized = false;
     try {
         if (connected) {
             await helper.verifyProgramId('', helper.config.staking.programId);
             loaded = true;
+
+            const settings = await Staking.settingsId(
+                helper.config.staking.programId
+            );
+            const settingsacc = await helper.connection.getAccountInfo(
+                settings
+            );
+            if (settingsacc !== null) {
+                initialized = true;
+            }
         }
     } catch (e) {}
     console.log(
         `   Program ID: ${helper.config.staking.programId} (${
-            loaded ? 'program loaded' : 'program not found'
+            loaded
+                ? 'program loaded' + (initialized ? ' & initialized' : '')
+                : 'program not found'
         })`
     );
     console.log();
