@@ -45,7 +45,7 @@
         {
             "name": "Zoints Member #1",
             "direct": {
-                "amount": 20000000000,
+                "amount": 527800000000,
                 "address": "GejCJVyhb8nr9Xxf1eXctsbCXVp8h8utqvsr7AuCdY5d"
             },
             "vested": {
@@ -73,118 +73,6 @@
             "vested": {
                 "amount": 130000000000,
                 "address": "HPL4WyQ97hnhP88kSyH2VPhV1U95qZuemUJogY6VXHYQ"
-            }
-        },
-        {
-            "name": "Zoints Member #4",
-            "direct": {
-                "amount": 20000000000,
-                "address": "RSoT74BPevsMD2M3tBgfZy4xwdwHAGxacRea99DD4MP"
-            },
-            "vested": {
-                "amount": 80000000000,
-                "address": "RSoT74BPevsMD2M3tBgfZy4xwdwHAGxacRea99DD4MP"
-            }
-        },
-        {
-            "name": "Zoints Member #5",
-            "direct": {
-                "amount": 6000000000,
-                "address": "7barJ7QEkbnkGGwme3VwvP92cufZrusRjAoeLBoNsuht"
-            },
-            "vested": {
-                "amount": 50000000000,
-                "address": "7barJ7QEkbnkGGwme3VwvP92cufZrusRjAoeLBoNsuht"
-            }
-        },
-        {
-            "name": "Zoints Member #6",
-            "direct": {
-                "amount": 5000000000,
-                "address": "EUSgMowCeP1BmDXDeCDc7VeQrAotAkMYuP22Cq47zQkG"
-            },
-            "vested": {
-                "amount": 40000000000,
-                "address": "EUSgMowCeP1BmDXDeCDc7VeQrAotAkMYuP22Cq47zQkG"
-            }
-        },
-        {
-            "name": "Zoints Member #7",
-            "direct": {
-                "amount": 20000000000,
-                "address": "8mmwqZkyEDhRQrFj4wcRarGfyg3fsEQ6cU8Dd8sLRDya"
-            },
-            "vested": {
-                "amount": 17500000000,
-                "address": "8mmwqZkyEDhRQrFj4wcRarGfyg3fsEQ6cU8Dd8sLRDya"
-            }
-        },
-        {
-            "name": "Zoints Member #8",
-            "direct": {
-                "amount": 17000000000,
-                "address": "4iDdTfUT4Wb2QR7xq28mBHYMKzDRpRMJTmVSjpGUEmV5"
-            },
-            "vested": {
-                "amount": 150000000000,
-                "address": "4iDdTfUT4Wb2QR7xq28mBHYMKzDRpRMJTmVSjpGUEmV5"
-            }
-        },
-        {
-            "name": "Zoints Member #9",
-            "direct": {
-                "amount": 20000000000,
-                "address": "3w2F5av4g5m6M429bHaLD76AFVVBhLpJmjEHuFx5EcdS"
-            }
-        },
-        {
-            "name": "Zoints Member #10",
-            "vested": {
-                "amount": 300000000,
-                "address": "ABovdrgtbkT1MMoFWSZixYu9mmhrajH9KkC4YaecymN7"
-            }
-        },
-        {
-            "name": "Zoints Member #11",
-            "direct": {
-                "amount": 15000000000,
-                "address": "FWCcqzSzFttWzecR2GnCZasLXrcoT4BwwMDk5FyZGwEd"
-            },
-            "vested": {
-                "amount": 10000000000,
-                "address": "FWCcqzSzFttWzecR2GnCZasLXrcoT4BwwMDk5FyZGwEd"
-            }
-        },
-        {
-            "name": "Zoints Member #12",
-            "vested": {
-                "amount": 5000000000,
-                "address": "5mi7AWrFfRVLokZ9oS6NdFW4kMCdbtyNZvSYCv6ytYs2"
-            }
-        },
-        {
-            "name": "Zoints Member #13",
-            "vested": {
-                "amount": 40000000000,
-                "address": "7uKFXz8QuQjyA5qDjLs4U4wvgjp4JfcL1Rr2PCkJ1Lca"
-            }
-        },
-        {
-            "name": "Zoints Member #14",
-            "vested": {
-                "amount": 2000000000,
-                "address": "7rAqy3rAB2Xe2WB43nsPgAtxkrWrZwSz7LAXdGuNgMc4"
-            }
-        },
-        {
-            "name": "Zoints Member #15",
-            "direct": {
-                "amount": 1000000000,
-                "address": "6coC6K21YUUFRJ2UGGYrnxRMCqzVnu8GWaD7gjTFHeJT"
-            },
-            "vested": {
-                "amount": 9000000000,
-                "address": "6coC6K21YUUFRJ2UGGYrnxRMCqzVnu8GWaD7gjTFHeJT"
             }
         }
     ]
