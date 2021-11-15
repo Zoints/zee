@@ -4,6 +4,6 @@
     "plugins": ["@typescript-eslint"],
     "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
     "rules": {
-        "no-console": 2
+        "no-console": 0
     }
 }
