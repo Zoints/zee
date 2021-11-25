@@ -16,7 +16,7 @@
         "vestedPercentage": 300
     },
     "staking": {
-        "programId": "8Msd7YiAQHzin4QPWgPJ7HfcGjpynWACKSP894oU8LaZ",
+        "programId": "5iBTa2s4yMq7ZbzjfC48hJwHAcZVrTFZtiFHjNBnRn8Y",
         "rewardPool": 5500000000000
     },
     "payout": [
@@ -46,7 +46,7 @@
             },
             "vested": {
                 "amount": 500000000000,
-                "address": "E5W55HmBNvrJee4UxjeuByxH5CTRcFtK9vTSgaCft8N2"
+                "address": "EutMMTNh8ME8NhRUXF8u4jMLB9McgTPaAY7q8B5Gfxf2"
             }
         },
         {
